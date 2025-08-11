@@ -20,6 +20,12 @@ public class Autor {
 
     public Autor(){}
 
+    public Autor(DadosAutor dadosAutor){
+        this.nome = dadosAutor.nome();
+        this.anoNascimento = dadosAutor.anoNascimento();
+        this.anoFalecimento = dadosAutor.anoFalecimento();
+    }
+
     @Override
     public String toString() {
         return "Nome= " + nome + '\'' +

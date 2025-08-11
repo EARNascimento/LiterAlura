@@ -1,13 +1,12 @@
 package br.com.alura.literalura.principal;
 
-import br.com.alura.literalura.model.DadosBusca;
-import br.com.alura.literalura.model.DadosLivro;
-import br.com.alura.literalura.model.Livro;
+import br.com.alura.literalura.model.*;
 import br.com.alura.literalura.repository.AutorRepository;
 import br.com.alura.literalura.repository.LivroRepository;
 import br.com.alura.literalura.service.ConsumoAPI;
 import br.com.alura.literalura.service.ConverteDados;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -19,7 +18,8 @@ public class Principal {
     private ConverteDados conversor = new ConverteDados();
     private LivroRepository repositorioLivro;
     private AutorRepository repositorioAutor;
-    
+    private List<Autor> autores;
+    private List<Livro> livros;
 
     public Principal(AutorRepository repositorioAutor, LivroRepository repositorioLivro) {
     }
@@ -78,7 +78,35 @@ public class Principal {
             System.out.println("Livro: " + livro);
             System.out.println("***************");
 
+            Optional<Livro> livroExiste = repositorioLivro.findByTitulo(livro.getTitulo());
+            if (livroExiste.isPresent()){
+                System.out.println("O livro buscado já está registrado!");
+            } else {
+                if (!dadosLivro.autor().isEmpty()){
+                    DadosAutor dadosAutor = dadosLivro.autor().get(0);
+                    Autor autor = new Autor(dadosAutor);
+                    Optional<Autor> autorOptional = repositorioAutor.findByNome(autor.getNome());
 
+                    if(autorOptional.isPresent()){
+                        Autor autorExiste = autorOptional.get();
+                        livro.setAutor(autorExiste);
+                        repositorioLivro.save(livro);
+                    } else {
+                        Autor autorNovo = repositorioAutor.save(autor);
+                        livro.setAutor(autorNovo);
+                        repositorioLivro.save(livro);
+                    }
+                    Integer quantidadeDownloads = livro.getQuantidadeDownloads() != null ? livro.getQuantidadeDownloads() : 0;
+                    System.out.println("****** Livro ******");
+                    System.out.printf("Titulo: %s%nAutor: %s%nIdioma: %s%nQuantidade de Downloads: %s%n",
+                            livro.getTitulo(), autor.getNome(), livro.getLinguagem(), livro.getQuantidadeDownloads());
+                    System.out.println("*******************");
+                }else{
+                    System.out.println("Sem autor");
+                }
+            }
+        }else{
+            System.out.println("Livro não encontrado");
         }
     }
 }
