@@ -8,6 +8,13 @@ public class Autor {
 
     public Autor(){}
 
+    @Override
+    public String toString() {
+        return "Nome= " + nome + '\'' +
+                ", Ano de Nascimento= " + anoNascimento +
+                ", Ano de falecimento= " + anoFalecimento;
+    }
+
     public String getNome() {
         return nome;
     }

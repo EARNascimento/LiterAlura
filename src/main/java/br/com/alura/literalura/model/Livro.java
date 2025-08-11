@@ -4,16 +4,30 @@ public class Livro {
 
     private String titulo;
     private Autor autor;
-    private Livro linguagem;
+    private Idioma linguagem;
     private Integer quantidadeDownloads;
 
     public Livro(){}
 
-    public Livro getLinguagem() {
+    public Livro(DadosLivro dadosLivro){
+        this.titulo = dadosLivro.titulo();
+        this.linguagem = Idioma.fromString(dadosLivro.idiomas().toString().split(",")[0].trim());
+        this.quantidadeDownloads = dadosLivro.quantidadeDownloads();
+    }
+
+    @Override
+    public String toString() {
+        String nomeAutor = (autor != null) ? autor.getNome() : "Autor Desconhecido";
+        return String.format("*** Livro ***%nTitulo: " +
+                " %s%nAutor: %s%nIdioma: %s%nQuantidade de Downloads: " +
+                " %d%n****************%n", titulo, nomeAutor, linguagem, quantidadeDownloads);
+    }
+
+    public Idioma getLinguagem() {
         return linguagem;
     }
 
-    public void setLinguagem(Livro linguagem) {
+    public void setLinguagem(Idioma linguagem) {
         this.linguagem = linguagem;
     }
 
