@@ -33,6 +33,8 @@ public class Principal {
                     2 - Listar livros registrados
                     3 - Listar autores registrados
                     4 - Listar autores vivos em determinado ano
+                    5 - Listar livros por idioma
+                    
                     0 - Sair
                     """;
 
@@ -55,6 +57,9 @@ public class Principal {
                     break;
                 case 4:
                     mostrarAutoresPorAno();
+                    break;
+                case 5:
+                    mostrarLivrosPorLinguagem();
                     break;
                 case 0:
                     System.out.println("Encerrando...");
@@ -135,5 +140,47 @@ public class Principal {
                 .forEach(System.out::println);
     }
 
+    private List<Livro> buscaDaLinguagem(String idioma){
+        var dados = Idioma.fromString(idioma);
+
+        List<Livro> livroPorIdioma = repositorioLivro.findByIdioma(dados);
+        return livroPorIdioma;
+    }
+
+    private void mostrarLivrosPorLinguagem() {
+        System.out.println("Selecione o idioma que deseja buscar: ");
+
+        var opcao = -1;
+        while (opcao != 0) {
+            var opcoes = """
+                    1. en - Ingles
+                    2. pt - Portugues
+                    
+                    0. Voltar às opções anteriores
+                    """;
+            System.out.println(opcoes);
+            while (!leitura.hasNextInt()) {
+                System.out.println("Opção inválida, digite um número disponível nas opções.");
+                leitura.nextLine();
+            }
+            opcao = leitura.nextInt();
+            leitura.nextInt();
+            switch (opcao) {
+                case 1:
+                    List<Livro> livrosEmIngles = buscaDaLinguagem("[en]");
+                    livrosEmIngles.forEach(System.out::println);
+                    break;
+                case 2:
+                    List<Livro> livrosEmPortugues = buscaDaLinguagem("[pt]");
+                    livrosEmPortugues.forEach(System.out::println);
+                    break;
+                case 0:
+                    return;
+                default:
+                    System.out.println("Nenhum dos idiomas selecionado");
+
+            }
+        }
+    }
     
 }
