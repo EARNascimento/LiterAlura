@@ -1,9 +1,18 @@
 package br.com.alura.literalura.model;
 
-public class Livro {
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "livros")
+public class Livro {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String titulo;
+    @ManyToOne
     private Autor autor;
+    @Enumerated(EnumType.STRING)
     private Idioma linguagem;
     private Integer quantidadeDownloads;
 
