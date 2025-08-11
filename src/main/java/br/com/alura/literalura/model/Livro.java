@@ -4,9 +4,18 @@ public class Livro {
 
     private String titulo;
     private Autor autor;
+    private Livro linguagem;
     private Integer quantidadeDownloads;
 
     public Livro(){}
+
+    public Livro getLinguagem() {
+        return linguagem;
+    }
+
+    public void setLinguagem(Livro linguagem) {
+        this.linguagem = linguagem;
+    }
 
     public String getTitulo() {
         return titulo;
