@@ -30,7 +30,7 @@ public class Principal {
             System.out.println("*******************\n");
             var menu = """
                     1 - Buscar Livros
-                    2 - 
+                    2 - Mostrar livros registrados
                     3 - 
                     
                     0 - Sair
@@ -48,6 +48,7 @@ public class Principal {
                     buscarLivro();
                     break;
                 case 2:
+                    mostrarLivros();
                     break;
                 case 3:
                     break;
@@ -108,5 +109,11 @@ public class Principal {
         }else{
             System.out.println("Livro não encontrado");
         }
+    }
+
+    private void mostrarLivros(){
+        livros = repositorioLivro.findAll();
+        livros.stream()
+                .forEach(System.out::println);
     }
 }
