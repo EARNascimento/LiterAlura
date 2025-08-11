@@ -22,6 +22,8 @@ public class Principal {
     private List<Livro> livros;
 
     public Principal(AutorRepository repositorioAutor, LivroRepository repositorioLivro) {
+        this.repositorioAutor = repositorioAutor;
+        this.repositorioLivro = repositorioLivro;
     }
 
     public void menu(){
@@ -182,5 +184,5 @@ public class Principal {
             }
         }
     }
-    
+
 }
