@@ -31,7 +31,7 @@ public class Principal {
             var menu = """
                     1 - Buscar Livros
                     2 - Mostrar livros registrados
-                    3 - 
+                    3 - Mostrar autores registrados
                     
                     0 - Sair
                     """;
@@ -51,6 +51,7 @@ public class Principal {
                     mostrarLivros();
                     break;
                 case 3:
+                    mostrarAutores();
                     break;
                 case 0:
                     System.out.println("Encerrando...");
@@ -114,6 +115,12 @@ public class Principal {
     private void mostrarLivros(){
         livros = repositorioLivro.findAll();
         livros.stream()
+                .forEach(System.out::println);
+    }
+
+    private void mostrarAutores(){
+        autores = repositorioAutor.findAll();
+        autores.stream()
                 .forEach(System.out::println);
     }
 }
