@@ -30,9 +30,9 @@ public class Principal {
             System.out.println("*******************\n");
             var menu = """
                     1 - Buscar Livros
-                    2 - Mostrar livros registrados
-                    3 - Mostrar autores registrados
-                    
+                    2 - Listar livros registrados
+                    3 - Listar autores registrados
+                    4 - Listar autores vivos em determinado ano
                     0 - Sair
                     """;
 
@@ -52,6 +52,9 @@ public class Principal {
                     break;
                 case 3:
                     mostrarAutores();
+                    break;
+                case 4:
+                    mostrarAutoresPorAno();
                     break;
                 case 0:
                     System.out.println("Encerrando...");
@@ -123,4 +126,14 @@ public class Principal {
         autores.stream()
                 .forEach(System.out::println);
     }
+
+    private void mostrarAutoresPorAno(){
+        System.out.println("Digite o ano do autor que deseja buscar: ");
+        var ano = leitura.nextInt();
+        autores = repositorioAutor.listAutorsAliveByYear(ano);
+        autores.stream()
+                .forEach(System.out::println);
+    }
+
+    
 }
